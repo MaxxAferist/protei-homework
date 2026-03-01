@@ -4,15 +4,17 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include "define.h"
+#include "mytools.h"
 
 using namespace std;
 
 
-vector<int> get_int_vector(vector<string> arguments);
-vector<float> get_float_vector(vector<string> arguments);
-vector<double> get_double_vector(vector<string> arguments);
-vector<char> get_char_vector(vector<string> arguments);
-vector<bool> get_bool_vector(vector<string> arguments);
+ERR_CODE get_int_vector(vector<int> &result, vector<string> arguments);
+ERR_CODE get_float_vector(vector<float> &result, vector<string> arguments);
+ERR_CODE get_double_vector(vector<double> &result, vector<string> arguments);
+ERR_CODE get_char_vector(vector<char> &result, vector<string> arguments);
+ERR_CODE get_bool_vector(vector<bool> &result, vector<string> arguments);
 
 
 #endif
