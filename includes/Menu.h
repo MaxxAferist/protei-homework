@@ -10,6 +10,7 @@
 #include "define.h"
 #include "DataPool.h"
 #include "AppSettings.h"
+#include "Tests.h"
 
 #include "vector_functions.h"
 #include "mytools.h"
@@ -91,6 +92,16 @@ private:
     AppSettings *app_settings;
     string* const type;
     DataPool *data_pool;
+};
+
+
+class MenuItemTest : public MenuItem {
+public:
+    MenuItemTest(vector<string> *args_vector) : args_vector(args_vector) {};
+    ERROR_INFO action() override;
+
+private:
+    vector<string> *args_vector;
 };
 
 

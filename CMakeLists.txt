@@ -25,7 +25,8 @@ endif()
 set( SRC_LIST   sources/main.cpp sources/vector_functions.cpp
                 sources/mytools.cpp sources/mylogger.cpp
                 sources/AppSettings.cpp sources/DataPool.cpp
-                sources/Menu.cpp sources/Program.cpp )
+                sources/Menu.cpp sources/Program.cpp 
+                sources/Tests.cpp)
 
 add_executable( ${PROJECT_NAME} ${SRC_LIST} )
 

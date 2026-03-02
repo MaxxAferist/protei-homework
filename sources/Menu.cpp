@@ -146,6 +146,50 @@ ERROR_INFO MenuItemShow::action()
     return ERROR_INFO(S_OK, "success");
 }
 
+ERROR_INFO MenuItemTest::action()
+{
+    if (args_vector->size() == 0)
+    {
+        log("Empty arguments", WARNING);
+        return ERROR_INFO(S_OK, "success");
+    }
+    string test_name = args_vector->at(0);
+    Test *test;
+    vector<string> args = *args_vector;
+    args.erase(args.begin(), args.begin() + 1);
+    if (test_name == "conn")
+    {
+        test = new ConnectionTest(args);
+        bool result = test->test();
+        if (result)
+        {
+            log("PASSED", INFO);
+        }
+        else
+        {
+            log("FAILED", INFO);
+        }
+    }
+    else if (test_name == "res")
+    {
+        test = new ResourceTest(args);
+        bool result = test->test();
+        if (result)
+        {
+            log("PASSED", INFO);
+        }
+        else
+        {
+            log("FAILED", INFO);
+        }
+    }
+    else
+    {
+        log("No test with name \"" + test_name + "\".", ERROR);
+    }
+    return ERROR_INFO(S_OK, "success");
+}
+
 
 ERROR_INFO MenuItemExit::action()
 {

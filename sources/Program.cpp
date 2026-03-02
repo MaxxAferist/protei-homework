@@ -12,6 +12,7 @@ Program::Program(AppSettings *app_settings)
     menu->add_item("type", new MenuItemType(&command_vector, &type), " - type <type (int, string, double, float, bool, char)>");
     menu->add_item("vector", new MenuItemVector(&command_vector, vectors, &type, data_pool), " - vector <value_1> <value_2> <value_3> <value_4>");
     menu->add_item("show", new MenuItemShow(app_settings, &type, data_pool), " - show (show actual information)");
+    menu->add_item("test", new MenuItemTest(&command_vector), " - test <name_test(\"conn\" or \"res\")> <param1> <param2>");
     menu->add_item("exit", new MenuItemExit(&exit), " - exit");
 }
 
