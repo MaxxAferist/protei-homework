@@ -1,7 +1,7 @@
 #include "vector_functions.h"
 
 
-ERR_CODE get_int_vector(vector<int> &result, vector<string> arguments)
+ERROR_INFO get_int_vector(vector<int> &result, vector<string> arguments)
 {
     vector<int> result_vector;
     for (const string &elem: arguments)
@@ -9,92 +9,92 @@ ERR_CODE get_int_vector(vector<int> &result, vector<string> arguments)
         if (!isdigit(elem))
         {
             cout << "Expected <int>, but something strange was passed" << endl;
-            return WARNING_CODE_VALUE;
+            return ERROR_INFO(WARNING_CODE_VALUE, "xpected <int>, but something strange was passed");
         }
         if (isoverflow_int(elem))
         {
             cout << "Overflow int error" << endl;
-            return WARNING_CODE_OVERFLOW;
+            return ERROR_INFO(WARNING_CODE_OVERFLOW, "overflow int");
         }
         result_vector.push_back(stoi(elem));
     }
     if (result_vector.back() == 0)
     {
-        return WARNING_CODE_FOURTH_ELEMENT_IS_NULL;
+        return ERROR_INFO(WARNING_CODE_FOURTH_ELEMENT_IS_NULL, "fourth element is 0");
     }
     result = result_vector;
-    return S_OK;
+    return ERROR_INFO(S_OK, "success");
 }
 
 
-ERR_CODE get_float_vector(vector<float> &result, vector<string> arguments)
+ERROR_INFO get_float_vector(vector<float> &result, vector<string> arguments)
 {
     vector<float> result_vector;
     for (const string &elem: arguments)
     {
         if (!isdigit(elem))
         {
-            cout << "Expected <int>, but something strange was passed" << endl;
-            return WARNING_CODE_VALUE;
+            cout << "Expected <float>, but something strange was passed" << endl;
+            return ERROR_INFO(WARNING_CODE_VALUE, "expected <float>, but something strange was passed");
         }
         if (isoverflow_int(elem))
         {
-            cout << "Overflow int error" << endl;
-            return WARNING_CODE_OVERFLOW;
+            cout << "Overflow float error" << endl;
+            return ERROR_INFO(WARNING_CODE_OVERFLOW, "overflow float");
         }
         result_vector.push_back(stof(elem));
     }
     if (result_vector.back() == 0)
     {
-        return WARNING_CODE_FOURTH_ELEMENT_IS_NULL;
+        return ERROR_INFO(WARNING_CODE_FOURTH_ELEMENT_IS_NULL, "fourth element is 0");
     }
     result = result_vector;
-    return S_OK;
+    return ERROR_INFO(S_OK, "success");
 }
 
 
-ERR_CODE get_double_vector(vector<double> &result, vector<string> arguments)
+ERROR_INFO get_double_vector(vector<double> &result, vector<string> arguments)
 {
     vector<double> result_vector;
     for (const string &elem: arguments)
     {
         if (!isdigit(elem))
         {
-            cout << "Expected <int>, but something strange was passed" << endl;
-            return WARNING_CODE_VALUE;
+            cout << "Expected <double>, but something strange was passed" << endl;
+            return ERROR_INFO(WARNING_CODE_VALUE, "expected <double>, but something strange was passed");
         }
         if (isoverflow_int(elem))
         {
-            cout << "Overflow int error" << endl;
-            return WARNING_CODE_OVERFLOW;
+            cout << "Overflow double error" << endl;
+            return ERROR_INFO(WARNING_CODE_OVERFLOW, "overflow double");
         }
         result_vector.push_back(stod(elem));
     }
     if (result_vector.back() == 0)
     {
-        return WARNING_CODE_FOURTH_ELEMENT_IS_NULL;
+        return ERROR_INFO(WARNING_CODE_FOURTH_ELEMENT_IS_NULL, "fourth element is 0");
     }
     result = result_vector;
-    return S_OK;
+    return ERROR_INFO(S_OK, "success");
 }
 
 
-ERR_CODE get_char_vector(vector<char> &result, vector<string> arguments)
+ERROR_INFO get_char_vector(vector<char> &result, vector<string> arguments)
 {
     vector<char> result_vector;
     for (const string &elem: arguments) {
         result_vector.push_back(elem.at(0));
     }
-    result = result_vector;
     if (result_vector.back() == 0)
     {
-        return WARNING_CODE_FOURTH_ELEMENT_IS_NULL;
+        return ERROR_INFO(WARNING_CODE_FOURTH_ELEMENT_IS_NULL, "fourth element is 0");
     }
-    return S_OK;
+    result = result_vector;
+    return ERROR_INFO(S_OK, "success");
 }
 
 
-ERR_CODE get_bool_vector(vector<bool> &result, vector<string> arguments)
+ERROR_INFO get_bool_vector(vector<bool> &result, vector<string> arguments)
 {
     vector<bool> result_vector;
     for (const string &elem: arguments) {
@@ -108,10 +108,10 @@ ERR_CODE get_bool_vector(vector<bool> &result, vector<string> arguments)
         }
         else {
             cout << elem << " not is bool type. Only \"true\" and \"false\"" << endl;
-            return WARNING_CODE_VECTOR;
+            return ERROR_INFO(WARNING_CODE_VALUE, "expected <bool>, but something strange was passed");
         }
     }
+    // vector<any> result_any_vec = get_any_vector<bool>(result_vector);
     result = result_vector;
-    return S_OK;
+    return ERROR_INFO(S_OK, "success");
 }
-
