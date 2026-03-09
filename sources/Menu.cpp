@@ -11,9 +11,9 @@ void Menu::print() const
 }
 
 
-void Menu::add_item(const string &command_name, MenuItem *item, string description)
+void Menu::add_item(const string &command_name, shared_ptr<MenuItem> item, string description)
 {
-    items[command_name] = unique_ptr<MenuItem>(item);
+    items[command_name] = item;
     descriptions[command_name] = description;
     key_commands.push_back(command_name);
 }
@@ -61,7 +61,6 @@ ERROR_INFO MenuItemType::action()
             *type = arg_type;
         }
     else {
-        cout << "Type \"" << arg_type << "\" not suitable for this program" << endl;
         *type = "int";
         return ERROR_INFO(WARNING_CODE_VALUE, "error type: \"" + arg_type + "\"");
     }
@@ -74,7 +73,6 @@ ERROR_INFO MenuItemVector::action()
     ERROR_INFO code(S_OK, "succes");
     if (args_vector->size() != 4)
     {
-        cout << "Expected 4 arguments, not " << args_vector->size() << endl;
         return ERROR_INFO(WARNING_CODE_VECTOR, "expected 4 arguments, not" + int(args_vector->size()));
     }
 
@@ -154,12 +152,12 @@ ERROR_INFO MenuItemTest::action()
         return ERROR_INFO(S_OK, "success");
     }
     string test_name = args_vector->at(0);
-    Test *test;
+    shared_ptr<Test> test;
     vector<string> args = *args_vector;
     args.erase(args.begin(), args.begin() + 1);
     if (test_name == "conn")
     {
-        test = new ConnectionTest(args);
+        test = make_shared<ConnectionTest>(args);
         bool result = test->test();
         if (result)
         {
@@ -172,7 +170,7 @@ ERROR_INFO MenuItemTest::action()
     }
     else if (test_name == "res")
     {
-        test = new ResourceTest(args);
+        test = make_shared<ResourceTest>(args);
         bool result = test->test();
         if (result)
         {

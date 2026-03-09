@@ -1,10 +1,12 @@
 #ifndef _MYLOGGER_H_
 #define _MYLOGGER_H_
 
+
 #include <ctime>
 #include <string>
 #include <iostream>
 #include <thread>
+#include <memory>
 
 
 using namespace std;

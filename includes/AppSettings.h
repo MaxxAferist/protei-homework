@@ -6,6 +6,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <memory>
 
 #include "define.h"
 #include "some_structures.h"
@@ -13,6 +14,7 @@
 
 #include "mytools.h"
 #include "mylogger.h"
+
 
 
 struct AppSettings
@@ -29,7 +31,7 @@ struct AppSettings
     ERROR_INFO init(int argc, char *argv[]);
     AppSettings(string& address, uint8_t& port, string& client_role, int i=0, string lib="", string nickname="");
     ERROR_INFO parse_arguments(map<string, string> &args, int argc, char *argv []);
-    bool check_arguments(map<string, string> *args) const;
+    bool check_arguments(shared_ptr<map<string, string>> args) const;
     ERROR_INFO get_user_info_from_arguments(map<string, string>& args);
 
     IPAddress get_ip_address() const;

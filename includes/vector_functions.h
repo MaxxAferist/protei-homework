@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <memory>
+
 #include "define.h"
 #include "mytools.h"
 #include "some_structures.h"

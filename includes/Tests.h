@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 #include <filesystem>
+#include <memory>
+
 #include "define.h"
 #include "mytools.h"
 #include "mylogger.h"

@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <stdint.h>
+#include <memory>
 
 #include "define.h"
 #include "some_structures.h"

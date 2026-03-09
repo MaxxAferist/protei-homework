@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <any>
+#include <memory>
 
 #include "define.h"
 #include "some_structures.h"
@@ -19,7 +20,7 @@ struct DataPool
     size_t length();
 
 private:
-    vector<vector<any>> MyVec;
+    shared_ptr<vector<vector<any>>> MyVec = make_unique<vector<vector<any>>>();
 };
 
 

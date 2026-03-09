@@ -6,6 +6,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <memory>
 
 #include "define.h"
 #include "DataPool.h"
@@ -27,11 +28,11 @@ public:
 class Menu {
 public:
     void print() const;
-    void add_item(const string &command_name, MenuItem *item, string description);
+    void add_item(const string &command_name, shared_ptr<MenuItem> item, string description);
     ERROR_INFO process_command(string &command_name);
 
 private:
-    map<string, unique_ptr<MenuItem>> items;
+    map<string, shared_ptr<MenuItem>> items;
     map<string, string> descriptions;
     vector<string> key_commands;
 };
@@ -39,33 +40,33 @@ private:
 
 class MenuItemName : public MenuItem {
 public:
-    MenuItemName(vector<string> *args_vector, AppSettings *app_settings)
+    MenuItemName(shared_ptr<vector<string>> args_vector, shared_ptr<AppSettings> app_settings)
               : args_vector(args_vector),
                 app_settings(app_settings) {};
     ERROR_INFO action() override;
 
 private:
-    vector<string> *args_vector;
-    AppSettings *app_settings;
+    shared_ptr<vector<string>> args_vector;
+    shared_ptr<AppSettings> app_settings;
 };
 
 
 class MenuItemType : public MenuItem {
 public:
-    MenuItemType(vector<string> *args_vector, string *type)
+    MenuItemType(shared_ptr<vector<string>> args_vector, shared_ptr<string> type)
               : args_vector(args_vector),
                 type(type) {};
     ERROR_INFO action() override;
 
 private:
-    vector<string> *args_vector;
-    string *type;
+    shared_ptr<vector<string>> args_vector;
+    shared_ptr<string> type;
 };
 
 
 class MenuItemVector : public MenuItem {
 public:
-    MenuItemVector(vector<string> *args_vector, AnyVectors *vectors, string *type, DataPool *data_pool)
+    MenuItemVector(shared_ptr<vector<string>> args_vector, shared_ptr<AnyVectors> vectors, shared_ptr<string> type, shared_ptr<DataPool> data_pool)
               : args_vector(args_vector),
                 vectors(vectors),
                 type(type),
@@ -73,46 +74,46 @@ public:
     ERROR_INFO action() override;
 
 private:
-    vector<string> *args_vector;
-    AnyVectors *vectors;
-    string* const type;
-    DataPool *data_pool;
+    shared_ptr<vector<string>> args_vector;
+    shared_ptr<AnyVectors> vectors;
+    shared_ptr<string> const type;
+    shared_ptr<DataPool> data_pool;
 };
 
 
 class MenuItemShow : public MenuItem {
 public:
-    MenuItemShow(AppSettings *app_settings, string *type, DataPool *data_pool)
+    MenuItemShow(shared_ptr<AppSettings> app_settings, shared_ptr<string> type, shared_ptr<DataPool> data_pool)
               : app_settings(app_settings),
                 type(type),
                 data_pool(data_pool) {};
     ERROR_INFO action() override;
 
 private:
-    AppSettings *app_settings;
-    string* const type;
-    DataPool *data_pool;
+    shared_ptr<AppSettings> app_settings;
+    shared_ptr<string> const type;
+    shared_ptr<DataPool> data_pool;
 };
 
 
 class MenuItemTest : public MenuItem {
 public:
-    MenuItemTest(vector<string> *args_vector) : args_vector(args_vector) {};
+    MenuItemTest(shared_ptr<vector<string>> args_vector) : args_vector(args_vector) {};
     ERROR_INFO action() override;
 
 private:
-    vector<string> *args_vector;
+    shared_ptr<vector<string>> args_vector;
 };
 
 
 class MenuItemExit : public MenuItem {
 public:
-    MenuItemExit(bool *exit)
+    MenuItemExit(shared_ptr<bool> exit)
               : exit(exit) {};
     ERROR_INFO action() override;
 
 private:
-    bool *exit;
+    shared_ptr<bool> exit;
 };
 
 

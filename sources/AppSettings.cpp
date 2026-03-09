@@ -10,7 +10,7 @@ ERROR_INFO AppSettings::init(int argc, char *argv[])
         return error_info;
     }
 
-    if (!check_arguments(&args))
+    if (!check_arguments(make_shared<map<string, string>>(args)))
     {
         error_info = ERROR_INFO(ERROR_CODE_COMMAND_LINE_ARGS, "required flags: -a, -p, -r");
         return error_info;
@@ -59,7 +59,7 @@ ERROR_INFO AppSettings::parse_arguments(map<string, string> &args, int argc, cha
 }
 
 
-bool AppSettings::check_arguments(map<string, string> *args) const
+bool AppSettings::check_arguments(shared_ptr<map<string, string>> args) const
 {
     vector<string> checking_flags = {"-a", "-p", "-r"};
     for (auto const &elem: checking_flags)
