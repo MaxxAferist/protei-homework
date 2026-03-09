@@ -27,8 +27,8 @@ public:
 class Menu {
 public:
     void print() const;
-    void add_item(const string command_name, MenuItem *item, string description);
-    ERROR_INFO process_command(string command_name);
+    void add_item(const string &command_name, MenuItem *item, string description);
+    ERROR_INFO process_command(string &command_name);
 
 private:
     map<string, unique_ptr<MenuItem>> items;

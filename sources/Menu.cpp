@@ -11,7 +11,7 @@ void Menu::print() const
 }
 
 
-void Menu::add_item(const string command_name, MenuItem *item, string description)
+void Menu::add_item(const string &command_name, MenuItem *item, string description)
 {
     items[command_name] = unique_ptr<MenuItem>(item);
     descriptions[command_name] = description;
@@ -19,7 +19,7 @@ void Menu::add_item(const string command_name, MenuItem *item, string descriptio
 }
 
 
-ERROR_INFO Menu::process_command(string command_name)
+ERROR_INFO Menu::process_command(string &command_name)
 {
     ERROR_INFO error_info;
     auto item = items.find(command_name);

@@ -21,13 +21,15 @@ ERROR_INFO AppSettings::init(int argc, char *argv[])
 }
 
 
-AppSettings::AppSettings(string address, int port, string client_role, int i, string lib, string nickname)
-            : address(address),
-            port(port),
-            client_role(client_role),
+AppSettings::AppSettings(string& address, uint8_t& port, string& client_role, int i, string lib, string nickname)
+        :   client_role(client_role),
             i(i),
             lib(lib),
-            nickname(nickname){}
+            nickname(nickname)
+{
+    ip_address.set_address(address);
+    ip_address.set_port(port);
+}
 
 
 ERROR_INFO AppSettings::parse_arguments(map<string, string> &args, int argc, char *argv [])
@@ -37,6 +39,7 @@ ERROR_INFO AppSettings::parse_arguments(map<string, string> &args, int argc, cha
     map<string, string> result_args;
     for (int i = 0;i < argc;i++) {
         string arg = argv[i];
+        strip(arg);
         if (arg[0] == '-')
         {
             current_flag = arg;
@@ -56,7 +59,7 @@ ERROR_INFO AppSettings::parse_arguments(map<string, string> &args, int argc, cha
 }
 
 
-bool AppSettings::check_arguments (map<string, string> *args) const
+bool AppSettings::check_arguments(map<string, string> *args) const
 {
     vector<string> checking_flags = {"-a", "-p", "-r"};
     for (auto const &elem: checking_flags)
@@ -70,20 +73,13 @@ bool AppSettings::check_arguments (map<string, string> *args) const
 }
 
 
-ERROR_INFO AppSettings::get_user_info_from_arguments(map<string, string> args)
+ERROR_INFO AppSettings::get_user_info_from_arguments(map<string, string>& args)
 {
-    address = args["-a"];
-
-    if (!isdigit(args["-p"])) {
-        return ERROR_INFO(ERROR_CODE_VALUE, "flag -p must be <int>");
-    }
-    if (isoverflow_int(args["-p"]))
+    string full_address = args["-a"] + ":" + args["-p"];
+    ERROR_INFO error_info = ip_address.set_full_address(full_address);
+    if (!error_info)
     {
-        return ERROR_INFO(ERROR_CODE_OVERFLOW, "Overflow int error");
-    }
-    port = stoi(args["-p"]);
-    if (0 > port || port > 65536) {
-         return ERROR_INFO(ERROR_CODE_OVERFLOW, "Port must be between 0 and 65536");
+        return error_info;
     }
     
     client_role = args["-r"];
@@ -110,15 +106,9 @@ ERROR_INFO AppSettings::get_user_info_from_arguments(map<string, string> args)
 }
 
 
-string AppSettings::get_address() const
+IPAddress AppSettings::get_ip_address() const
 {
-    return address;
-}
-
-
-int AppSettings::get_port() const
-{
-    return port;
+    return ip_address;
 }
 
 
@@ -140,7 +130,7 @@ string AppSettings::get_lib() const
 }
 
 
-void AppSettings::set_nickname(string new_nickname)
+void AppSettings::set_nickname(string& new_nickname)
 {
     nickname = new_nickname;
 }

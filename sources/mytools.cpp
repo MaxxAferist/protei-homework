@@ -1,7 +1,7 @@
 #include "mytools.h"
 
 
-string tolower(const string str_)
+string tolower(const string &str_)
 {
     string str = str_;
     for (size_t i = 0;i < str.length();i++) {
@@ -14,7 +14,7 @@ string tolower(const string str_)
 }
 
 
-vector<string> split_string(const string str_, const string delimiter)
+vector<string> split_string(const string &str_, const string &delimiter)
 {
     string str = str_;
     vector<string> result;
@@ -24,14 +24,14 @@ vector<string> split_string(const string str_, const string delimiter)
         string first = str.substr(0, delimiter_pos);
         str = str.substr(delimiter_pos + delimiter.length());
         result.push_back(first);
-        delimiter_pos = str.find(" ");
+        delimiter_pos = str.find(delimiter);
     }
     result.push_back(str);
     return result;
 }
 
 
-vector<string> split_string(const string str_)
+vector<string> split_string(const string &str_)
 {
     string str = str_ + " "; 
 
@@ -61,7 +61,14 @@ vector<string> split_string(const string str_)
 }
 
 
-string join(const vector<string> str_vector, const string delimiter)
+void strip(string &str_)
+{
+    str_.erase(0, str_.find_first_not_of(" \t\r\n"));
+    str_.erase(str_.find_last_not_of(" \t\r\n") + 1);
+}
+
+
+string join(const vector<string> &str_vector, const string &delimiter)
 {
     string result = "";
     for (auto const &elem: str_vector)
@@ -75,7 +82,7 @@ string join(const vector<string> str_vector, const string delimiter)
 }
 
 
-bool isdigit(const string str_)
+bool isdigit(const string &str_)
 {
     string str = str_;
     if (str[0] == '-')
@@ -91,7 +98,8 @@ bool isdigit(const string str_)
     auto dot_pos = str.find(".");
     if (dot_pos != string::npos)
     {
-        if (dot_pos == 0 || dot_pos == str.length() - 1) {
+        if (dot_pos == 0 || dot_pos == str.length() - 1)
+        {
             return false;
         }
         str.erase(str.begin() + dot_pos, str.begin() + dot_pos + 1);
@@ -108,7 +116,39 @@ bool isdigit(const string str_)
 }
 
 
-bool isoverflow_int(const string str_)
+bool isdigit_hex(const string &str_)
+{
+    string str = str_;
+
+    while (str.length() > 1 && (str[0] == '0' && str[1] == '0'))
+    {
+        str.erase(0, 1);
+    }
+
+    auto dot_pos = str.find(".");
+    if (dot_pos != string::npos)
+    {
+        if (dot_pos == 0 || dot_pos == str.length() - 1)
+        {
+            return false;
+        }
+        str.erase(str.begin() + dot_pos, str.begin() + dot_pos + 1);
+    }
+
+    string valid_symbols = "0123456789abcdefABCDEF";
+
+    for (char &elem: str)
+    {
+        if (valid_symbols.find(elem) == string::npos)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+bool isoverflow_int(const string &str_)
 {
     string max_int = "2147483647";
     size_t max_int_length = max_int.length();
@@ -139,7 +179,38 @@ bool isoverflow_int(const string str_)
 }
 
 
-int string_count(const string str_, const string substr_)
+bool isoverflow_hex(const string &str_)
+{
+    string max_int = "FFFFFFFF";
+    size_t max_int_length = max_int.length();
+    size_t str_length = str_.length();
+    if (max_int_length > str_length)
+    {
+        return false;
+    }
+    else if (max_int_length < str_length)
+    {
+        return true;
+    }
+    else
+    {
+        for (size_t i = 0;i < str_length;i++)
+        {
+            if (max_int[i] > str_[i])
+            {
+                return false;
+            }
+            else if (max_int[i] < str_[i])
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+int string_count(const string &str_, const string &substr_)
 {
     string str = str_;
     size_t substr_length = substr_.length();

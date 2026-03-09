@@ -13,7 +13,7 @@ ERROR_INFO DataPool::first(vector<any> &vec)
 }
 
 
-void DataPool::insert(vector<any> const vec)
+void DataPool::insert(vector<any> const &vec)
 {
     MyVec.insert(MyVec.begin(), vec);
 }

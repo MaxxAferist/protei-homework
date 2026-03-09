@@ -12,15 +12,15 @@
 using namespace std;
 
 
-ERROR_INFO get_int_vector(vector<int> &result, vector<string> arguments);
-ERROR_INFO get_float_vector(vector<float> &result, vector<string> arguments);
-ERROR_INFO get_double_vector(vector<double> &result, vector<string> arguments);
-ERROR_INFO get_char_vector(vector<char> &result, vector<string> arguments);
-ERROR_INFO get_bool_vector(vector<bool> &result, vector<string> arguments);
+ERROR_INFO get_int_vector(vector<int> &result, vector<string> &arguments);
+ERROR_INFO get_float_vector(vector<float> &result, vector<string> &arguments);
+ERROR_INFO get_double_vector(vector<double> &result, vector<string> &arguments);
+ERROR_INFO get_char_vector(vector<char> &result, vector<string> &arguments);
+ERROR_INFO get_bool_vector(vector<bool> &result, vector<string> &arguments);
 
 
 template <typename T>
-void print(vector<T> vec, string type)
+void print(vector<T> &vec, string type)
 {
     cout << "================================" << endl;
     cout << "Vector<" << type << "> = { ";
@@ -33,7 +33,7 @@ void print(vector<T> vec, string type)
 
 
 template <typename T>
-vector<any> get_any_vector(vector<T> vec)
+vector<any> get_any_vector(vector<T> &vec)
 {
     vector<any> result;
     result.reserve(vec.size());

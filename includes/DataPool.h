@@ -15,7 +15,7 @@ using namespace std;
 struct DataPool
 {
     ERROR_INFO first(vector<any> &vec);
-    void insert(vector<any> const vec);
+    void insert(vector<any> const &vec);
     size_t length();
 
 private:

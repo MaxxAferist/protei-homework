@@ -10,9 +10,6 @@
 #include "define.h"
 #include "Program.h"
 #include "AppSettings.h"
-
-#include "vector_functions.h"
-#include "mytools.h"
 #include "mylogger.h"
 
 

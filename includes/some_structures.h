@@ -16,6 +16,11 @@ struct ERROR_INFO
     ERROR_INFO (ERR_CODE code, string info) : code(code), info(info) {};
     ERR_CODE code;
     string info;
+
+    explicit operator bool () const
+    {
+        return code == S_OK;
+    }
 };
 
 

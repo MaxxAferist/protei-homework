@@ -57,8 +57,7 @@ int Program::start()
 void Program::print_user_info()
 {
     cout << "Client data:" << endl;
-    cout << "IP Address: " << app_settings->address << endl;
-    cout << "Port: " << app_settings->port << endl;
+    cout << "IP Address: " << app_settings->ip_address << endl;
     cout << "Role: " << app_settings->client_role << endl;
     cout << "I: " << app_settings->i << endl;
     cout << "Lib: " << app_settings->lib << endl;

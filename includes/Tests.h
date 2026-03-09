@@ -24,7 +24,7 @@ public:
 class ConnectionTest : public Test
 {
 public:
-    ConnectionTest(vector<string> params) : params(params) {};
+    ConnectionTest(vector<string> &params) : params(params) {};
     bool test() override;
 
 private:
@@ -35,7 +35,7 @@ private:
 class ResourceTest : public Test
 {
 public:
-    ResourceTest(vector<string> params) : params(params) {};
+    ResourceTest(vector<string> &params) : params(params) {};
     bool test() override;
 
 private:

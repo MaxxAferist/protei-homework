@@ -1,7 +1,7 @@
 #include "vector_functions.h"
 
 
-ERROR_INFO get_int_vector(vector<int> &result, vector<string> arguments)
+ERROR_INFO get_int_vector(vector<int> &result, vector<string> &arguments)
 {
     vector<int> result_vector;
     for (const string &elem: arguments)
@@ -27,7 +27,7 @@ ERROR_INFO get_int_vector(vector<int> &result, vector<string> arguments)
 }
 
 
-ERROR_INFO get_float_vector(vector<float> &result, vector<string> arguments)
+ERROR_INFO get_float_vector(vector<float> &result, vector<string> &arguments)
 {
     vector<float> result_vector;
     for (const string &elem: arguments)
@@ -53,7 +53,7 @@ ERROR_INFO get_float_vector(vector<float> &result, vector<string> arguments)
 }
 
 
-ERROR_INFO get_double_vector(vector<double> &result, vector<string> arguments)
+ERROR_INFO get_double_vector(vector<double> &result, vector<string> &arguments)
 {
     vector<double> result_vector;
     for (const string &elem: arguments)
@@ -79,7 +79,7 @@ ERROR_INFO get_double_vector(vector<double> &result, vector<string> arguments)
 }
 
 
-ERROR_INFO get_char_vector(vector<char> &result, vector<string> arguments)
+ERROR_INFO get_char_vector(vector<char> &result, vector<string> &arguments)
 {
     vector<char> result_vector;
     for (const string &elem: arguments) {
@@ -94,7 +94,7 @@ ERROR_INFO get_char_vector(vector<char> &result, vector<string> arguments)
 }
 
 
-ERROR_INFO get_bool_vector(vector<bool> &result, vector<string> arguments)
+ERROR_INFO get_bool_vector(vector<bool> &result, vector<string> &arguments)
 {
     vector<bool> result_vector;
     for (const string &elem: arguments) {
@@ -111,7 +111,6 @@ ERROR_INFO get_bool_vector(vector<bool> &result, vector<string> arguments)
             return ERROR_INFO(WARNING_CODE_VALUE, "expected <bool>, but something strange was passed");
         }
     }
-    // vector<any> result_any_vec = get_any_vector<bool>(result_vector);
     result = result_vector;
     return ERROR_INFO(S_OK, "success");
 }
